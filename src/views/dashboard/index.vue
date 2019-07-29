@@ -6,13 +6,20 @@
 
 <script>
 import { mapGetters } from 'vuex'
-
+import { getInfo } from '@/api/user'
 export default {
   name: 'Dashboard',
   computed: {
-    ...mapGetters([
-      'name'
-    ])
+    ...mapGetters(['name'])
+  },
+  created() {
+    getInfo()
+      .then(result => {
+        console.log(result)
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 }
 </script>

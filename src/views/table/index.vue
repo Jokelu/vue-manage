@@ -13,9 +13,9 @@
           {{ scope.$index }}
         </template>
       </el-table-column>
-      <el-table-column label="Title">
+      <el-table-column label="账号">
         <template slot-scope="scope">
-          {{ scope.row.title }}
+          {{ scope.row.username }}
         </template>
       </el-table-column>
       <el-table-column label="Author" width="110" align="center">
@@ -70,7 +70,8 @@ export default {
     fetchData() {
       this.listLoading = true
       getList().then(response => {
-        this.list = response.data.items
+        console.log(response)
+        this.list = response.data
         this.listLoading = false
       })
     }
