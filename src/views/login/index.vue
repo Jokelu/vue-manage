@@ -9,9 +9,8 @@
       label-position="left"
     >
       <div class="title-container">
-        <h3 class="title">Login Form</h3>
+        <h3 class="title">Login</h3>
       </div>
-
       <el-form-item prop="username">
         <span class="svg-container">
           <svg-icon icon-class="user" />
@@ -64,7 +63,7 @@
 
 <script>
 import { validUsername } from '@/utils/validate'
-import { login } from '@/api/user'
+
 export default {
   data() {
     const validateUsername = (rule, value, callback) => {
@@ -122,26 +121,26 @@ export default {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true
-          login(this.loginForm)
-            .then(res => {
-              console.log(res)
-              localStorage.setItem('token', res.token)
-              this.$router.push({ path: '/' })
-              this.loading = false
-            })
-            .catch(err => {
-              this.loading = false
-              console.log(err)
-            })
-          // this.$store
-          //   .dispatch('user/login', this.loginForm)
-          //   .then(() => {
-          //     this.$router.push({ path: this.redirect || '/' })
+          // login(this.loginForm)
+          //   .then(res => {
+          //     console.log(res)
+          //     localStorage.setItem('token', res.token)
+          //     this.$router.push({ path: '/' })
           //     this.loading = false
           //   })
-          //   .catch(() => {
+          //   .catch(err => {
           //     this.loading = false
+          //     console.log(err)
           //   })
+          this.$store
+            .dispatch('user/login', this.loginForm)
+            .then(() => {
+              this.$router.push({ path: this.redirect || '/' })
+              this.loading = false
+            })
+            .catch(() => {
+              this.loading = false
+            })
         } else {
           console.log('error submit!!')
           return false
